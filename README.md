@@ -6,11 +6,10 @@ A highly polished, full-stack, responsive, and gamified Todo application designe
 
 ## 📸 Screenshots
 
-> [!NOTE]
-> *Replace these placeholders with actual screenshots when hosting or demonstrating the project.*
 
 * **Dashboard (Active Quests list with search, filter, and sort controls):**
-  `[Insert Dashboard Screenshot here]`
+  <img width="1911" height="923" alt="image" src="https://github.com/user-attachments/assets/aa0649dc-b73d-4796-9de0-f802c7010159" />
+
 
 * **Quest Editor & Details (Detail view and validation-guided edit mode):**
   `[Insert Quest Details Screenshot here]`
