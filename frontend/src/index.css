@@ -1,120 +1,649 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&family=Fredoka:wght@400;600;700&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+:root {
+  --primary: #ff007f;       /* Neon Pink */
+  --secondary: #00f2fe;     /* Neon Cyan */
+  --accent: #39ff14;        /* Retro Green */
+  --warning: #ff9f43;       /* Neon Orange */
+  --boss: #ffe66d;          /* Neon Yellow */
+  --bg-color: #0c0d14;      /* Deep Space Dark */
+  --card-bg: #151824;       /* Slate Dark Panel */
+  --text-main: #eceff1;     /* Cyber White */
+  --text-muted: #90a4ae;    /* Steel Gray */
+  --border-color: #2b3045;  /* Heavy Metal Border */
+  --glow-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
 }
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  min-width: 320px;
+  background-color: var(--bg-color);
+  background-image: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 6px 100%;
+  color: var(--text-main);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.15rem;
   min-height: 100vh;
   padding-top: 2rem;
+  background-attachment: fixed;
+  letter-spacing: 0.5px;
+}
+
+/* CRT Screen Effects */
+.crt-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+  background-size: 100% 6px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.crt-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 80px rgba(0, 242, 254, 0.08);
+  z-index: 9998;
+  pointer-events: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Press Start 2P', cursive;
+  color: var(--text-main);
+  text-shadow: 3px 3px 0px var(--primary);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1.4;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2.2rem;
   text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 850px;
+  width: 92%;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+
+/* Arcade Header & Player Stats Widget */
+.arcade-header {
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.player-card {
+  background-color: var(--card-bg);
+  border: 4px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 4px 15px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.player-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 2rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+}
+
+.player-avatar {
+  font-size: 2.5rem;
+  background: var(--bg-color);
+  border: 3px solid var(--secondary);
+  border-radius: 8px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 5px rgba(0, 242, 254, 0.3); }
+  100% { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 242, 254, 0.7); }
+}
+
+.player-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.player-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-name {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  color: var(--secondary);
+  text-shadow: 1px 1px 0 var(--bg-color);
+}
+
+.player-level {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  background: var(--primary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: white;
+}
+
+.player-rank-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.1rem;
+}
+
+.player-rank {
+  font-size: 0.95rem;
+  color: var(--boss);
+  font-weight: 600;
+}
+
+.player-xp-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.mini-xp-container {
+  display: flex;
+  align-items: center;
+  background: #1c1f2e;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2px;
+  height: 10px;
+  margin-top: 0.4rem;
+}
+
+.mini-xp-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary), var(--accent));
+  border-radius: 3px;
+  transition: width 0.4s ease-out;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 4px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.4rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  flex-grow: 1;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.navbar a:hover {
+  color: var(--secondary);
+  background: rgba(0, 242, 254, 0.05);
+}
+
+.navbar a.active {
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--text-main);
+  box-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+}
+
+/* Dashboard Filter and Controls */
+.dashboard-controls {
+  background: var(--card-bg);
+  border: 3px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-bar {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.filter-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filter-group label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Todo Items */
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .todo-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a1a1a;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  background-color: var(--card-bg);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  border: 3px solid var(--border-color);
+  transition: all 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.todo-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background-color: var(--border-color);
+  border-radius: 9px 0 0 9px;
+}
+
+.todo-item.priority-LOW::before { background-color: var(--text-muted); }
+.todo-item.priority-MEDIUM::before { background-color: var(--secondary); }
+.todo-item.priority-HIGH::before { background-color: var(--warning); }
+.todo-item.priority-BOSS::before { 
+  background-color: var(--boss);
+  animation: borderGlow 1.5s infinite alternate; 
+}
+
+@keyframes borderGlow {
+  0% { box-shadow: 0 0 5px var(--boss); }
+  100% { box-shadow: 0 0 15px var(--boss); }
 }
 
 .todo-item:hover {
-  transform: translateY(-2px);
-  background-color: #2a2a2a;
+  transform: translateY(-3px);
+  border-color: var(--secondary);
+  box-shadow: 0 6px 15px rgba(0, 242, 254, 0.15);
 }
 
 .todo-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #646cff;
-  text-decoration: none;
-}
-.todo-title:hover {
-  color: #747bff;
+  font-size: 1.3rem;
+  color: var(--text-main);
+  font-weight: bold;
 }
 
 .todo-completed {
   text-decoration: line-through;
-  color: #888;
+  color: var(--text-muted) !important;
+  opacity: 0.6;
 }
 
+/* Custom Interactive Inputs & Buttons */
 button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  font-weight: bold;
+  background-color: var(--primary);
+  color: white;
+  border: 3px solid var(--text-main);
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 0.8rem 1.4rem;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
+  box-shadow: 0 4px 0 #99004c;
+  transition: all 0.1s;
+  text-transform: uppercase;
 }
 
+button:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 0 #99004c, 0 0 8px rgba(255, 0, 127, 0.4);
+}
+
+button:active {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0 #99004c;
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  box-shadow: 0 4px 0 #009cb3;
+  color: #0c0d14;
+}
+.btn-secondary:hover {
+  box-shadow: 0 4px 0 #009cb3, 0 0 8px rgba(0, 242, 254, 0.4);
+}
+.btn-secondary:active {
+  box-shadow: 0 0px 0 #009cb3;
+}
+
+.btn-danger {
+  background-color: #ff3838;
+  box-shadow: 0 4px 0 #b30000;
+}
+.btn-danger:hover {
+  box-shadow: 0 4px 0 #b30000, 0 0 8px rgba(255, 56, 56, 0.4);
+}
+.btn-danger:active {
+  box-shadow: 0 0px 0 #b30000;
+}
+
+/* Form Styles */
 .form-group {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-input {
-  flex: 1;
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background-color: #1a1a1a;
-  color: white;
-  font-size: 1rem;
-}
-
-.todo-details-card {
-  background-color: #1a1a1a;
-  padding: 2rem;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: var(--card-bg);
+  padding: 2.2rem;
   border-radius: 12px;
-  box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+  border: 4px solid var(--border-color);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+.form-group label {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  color: var(--secondary);
+  margin-bottom: -0.4rem;
+}
+
+input[type="text"], input[type="date"], select, textarea {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--bg-color);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* 3D Retro Checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  width: 2.4rem !important;
+  height: 2.4rem !important;
+  background-color: var(--bg-color);
+  border: 3px solid var(--border-color);
+  border-radius: 6px;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+input[type="checkbox"]::before {
+  content: "👾";
+  font-size: 1.2rem;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+/* Detail Card & Dialog panels */
+.todo-details-card {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 4px solid var(--border-color);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  margin-top: 1.5rem;
 }
 
 .back-link {
   display: inline-block;
-  margin-bottom: 1.5rem;
-  color: #646cff;
+  color: var(--primary);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
   text-decoration: none;
-}
-.back-link:hover {
-  text-decoration: underline;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s;
 }
 
-.delete-btn {
-  background-color: #ff4a4a;
-  color: white;
-  border: none;
+.back-link:hover {
+  color: var(--secondary);
+  border-color: var(--secondary);
+  transform: translateX(-4px);
 }
-.delete-btn:hover {
-  background-color: #ff6a6a;
+
+/* Retro Badges */
+.badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border: 2px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-transform: uppercase;
+}
+
+.badge-LOW {
+  background-color: rgba(144, 164, 174, 0.1);
+  border-color: var(--text-muted);
+  color: var(--text-muted);
+}
+.badge-MEDIUM {
+  background-color: rgba(0, 242, 254, 0.1);
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+.badge-HIGH {
+  background-color: rgba(255, 159, 67, 0.1);
+  border-color: var(--warning);
+  color: var(--warning);
+}
+.badge-BOSS {
+  background-color: rgba(255, 230, 109, 0.15);
+  border-color: var(--boss);
+  color: var(--boss);
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.badge-overdue {
+  background-color: rgba(255, 56, 56, 0.15);
+  border-color: #ff3838;
+  color: #ff3838;
+  animation: blinkRed 0.8s infinite alternate;
+}
+
+@keyframes blinkRed {
+  0% { opacity: 0.7; box-shadow: 0 0 2px #ff3838; }
+  100% { opacity: 1; box-shadow: 0 0 10px #ff3838; }
+}
+
+/* Stats Progress Elements */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px dashed var(--border-color);
+  padding-bottom: 0.8rem;
+}
+
+.stat-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  color: var(--secondary);
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 26px;
+  background-color: var(--bg-color);
+  border: 3px solid var(--border-color);
+  border-radius: 8px;
+  margin-top: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+/* Floating XP details */
+.xp-popup {
+  position: fixed;
+  color: var(--accent);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5rem;
+  pointer-events: none;
+  z-index: 10000;
+  animation: floatUp 1.2s ease-out forwards;
+  text-shadow: 2px 2px 0 #000;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.8); opacity: 1; }
+  100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
+}
+
+/* Game Cabinet Outlines */
+.arcade-cabinet {
+  border: 4px solid var(--border-color);
+  box-shadow: 
+    0 0 0 4px var(--bg-color), 
+    0 0 0 8px var(--primary), 
+    0 10px 30px rgba(0,0,0,0.8);
+  border-radius: 16px;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 5px;
+  border: 2px solid var(--bg-color);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Loading & Offline State screens */
+.game-state-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  border: 3px dashed var(--border-color);
+  border-radius: 12px;
+  background: rgba(21, 24, 36, 0.5);
+  margin-top: 2rem;
+}
+
+.offline-title {
+  color: #ff3838;
+  font-size: 1.6rem;
+  text-shadow: 2px 2px 0 var(--bg-color);
+  animation: blinkRed 1s infinite alternate;
+}
+
+/* Responsive fixes */
+@media (max-width: 600px) {
+  h1 { font-size: 1.5rem; }
+  .navbar a { font-size: 0.6rem; padding: 0.6rem; }
+  .player-card { flex-direction: column; align-items: stretch; text-align: center; }
+  .player-avatar { margin: 0 auto; }
+  .todo-item { flex-direction: column; gap: 1rem; align-items: stretch; }
+  .delete-btn { align-self: flex-end; }
 }
