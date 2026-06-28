@@ -10,7 +10,8 @@ A highly polished, full-stack, responsive, and gamified Todo application designe
 * **Dashboard (Active Quests list with search, filter, and sort controls):**
   <img width="1911" height="923" alt="image" src="https://github.com/user-attachments/assets/aa0649dc-b73d-4796-9de0-f802c7010159" />
   <img width="1906" height="962" alt="image" src="https://github.com/user-attachments/assets/7ad23428-c95e-4273-97ae-d5c8c53c7110" />
-
+  After Completion of task:
+  <img width="1918" height="977" alt="image" src="https://github.com/user-attachments/assets/f454f606-fa66-4ce8-adfd-c74462bb6836" />
 
 
 * **Quest Editor & Details (Detail view and validation-guided edit mode):**
@@ -19,6 +20,8 @@ A highly polished, full-stack, responsive, and gamified Todo application designe
 
 * **Character Sheet (Player XP progression, level-up details, and task clearance stats):**
  <img width="1917" height="952" alt="image" src="https://github.com/user-attachments/assets/3150a623-c783-468d-8fe9-9819f92fc321" />
+  As task gets accompolished:
+  <img width="1902" height="917" alt="image" src="https://github.com/user-attachments/assets/fb1ab949-39f2-48ac-a933-6e2b619198d1" />
 
 
 * **Settings Console (Sound calibration and CRT scanline toggles):**
